@@ -528,7 +528,7 @@ require('lazy').setup({
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           -- FIXME: Change this ugly stuff after Neovim 0.10 release
           local _, supports_document_highlight =
-            vim.lsp.protocol.Methods and pcall(client.supports_method, vim.lsp.protocol.Methods.textDocument_documentHighlight) or false,
+            vim.lsp.protocol.Methods and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) or false,
             client.server_capabilities.documentHighlightProvider
           if client and supports_document_highlight then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
@@ -555,7 +555,7 @@ require('lazy').setup({
 
           -- FIXME: Change this ugly stuff after Neovim 0.10 release
           local _, has_inlay_hints =
-            vim.lsp.protocol.Methods and pcall(client.supports_method, vim.lsp.protocol.Methods.textDocument_inlayHint) or false,
+            vim.lsp.protocol.Methods and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) or false,
             client.server_capabilities.inlayHintProvider
           -- The following autocommand is used to enable inlay hints in your
           -- code, if the language server you are using supports them
