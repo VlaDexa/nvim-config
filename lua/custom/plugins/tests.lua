@@ -12,7 +12,7 @@ return {
       function()
         require('neotest').run.run()
       end,
-      desc = 'Tests: Run nearest [T]est',
+      desc = 'Tests: [R]un nearest test',
     },
     {
       '<leader>ctf',
