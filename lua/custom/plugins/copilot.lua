@@ -1,10 +1,10 @@
 return { -- Copilot
   'github/copilot.vim',
-  init = function()
-    vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
-      expr = true,
-      replace_keycodes = false,
-    })
+  keys = {
+    { '<C-J>', 'copilot#Accept("\\<CR>")', mode = 'i', expr = true, replace_keycodes = false },
+  },
+  event = 'InsertEnter',
+  config = function()
     vim.g.copilot_no_tab_map = true
   end,
 }
