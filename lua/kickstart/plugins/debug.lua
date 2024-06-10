@@ -47,6 +47,7 @@ return {
         'codelldb',
       },
     },
+    cmd = { 'DapInstall', 'DapUninstall' },
   },
   {
     -- NOTE: Yes, you can install new plugins here!
