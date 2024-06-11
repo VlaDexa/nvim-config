@@ -430,7 +430,7 @@ require('lazy').setup({
       -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
       ---@alias lazydev.Library {path:string, words:string[], mods:string[]}
-      ---@alias lazydev.Library.spec string|{path:string, words?:string[], mods?:string[]}
+      ---@alias lazydev.Library.spec string|lazydev.Library
       {
         'folke/lazydev.nvim',
         ft = 'lua',
