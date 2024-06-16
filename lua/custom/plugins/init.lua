@@ -11,4 +11,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
-return {}
+return {
+  { 'neovim/nvim-lspconfig', event = 'VeryLazy' },
+  { 'nvim-treesitter/nvim-treesitter', event = 'VeryLazy' },
+  { 'echasnovski/mini.nvim', event = 'VeryLazy' },
+  { 'lewis6991/gitsigns.nvim', event = 'VeryLazy' },
+  { 'tpope/vim-sleuth', event = 'VeryLazy' },
+}
