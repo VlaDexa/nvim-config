@@ -197,12 +197,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- [[ Custom Filetypes ]]
 
 -- Define a filetype for `.wgsl` files
-vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
-  pattern = '*.wgsl',
-  callback = function()
-    vim.bo.filetype = 'wgsl'
-  end,
-})
+vim.filetype.add { extension = { wgsl = 'wgsl' } }
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
