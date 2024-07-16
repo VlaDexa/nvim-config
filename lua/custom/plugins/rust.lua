@@ -1,30 +1,32 @@
+local test_fts = vim.g.test_fts or {}
+table.insert(test_fts, 'rust')
+vim.g.test_fts = test_fts
+
 return {
   {
     -- Managing crates.io dependencies --
     'saecki/crates.nvim',
     tag = 'stable',
     event = { 'BufRead Cargo.toml' },
-    config = function()
-      require('crates').setup()
-    end,
+    opts = {},
   },
   {
     'rouge8/neotest-rust',
     dependencies = {
       {
         'nvim-neotest/neotest',
-        opts = function(_, opts)
-          opts.adapters = opts.adapters or {}
-          table.insert(
-            opts.adapters,
-            require 'neotest-rust' {
-              args = { '--no-capture' },
-            }
-          )
+        opts = function()
+          return {
+            adapters = {
+              require 'neotest-rust' {
+                args = { '--no-capture' },
+              },
+            },
+          }
         end,
       },
       'nvim-treesitter/nvim-treesitter',
     },
-    ft = 'rust',
+    lazy = true,
   },
 }
