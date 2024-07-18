@@ -171,6 +171,11 @@ vim.opt.langmap = {
   'фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz',
 }
 
+-- Enable treesitter based folding
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.wo.foldlevel = 99
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
