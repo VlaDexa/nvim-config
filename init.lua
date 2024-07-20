@@ -661,6 +661,8 @@ require('lazy').setup({
         desc = '[F]ormat buffer',
       },
     },
+    ---@module "conform"
+    ---@type conform.setupOpts
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
@@ -675,11 +677,12 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        python = { 'isort', 'black' },
-        javascript = { { 'prettierd', 'prettier' } },
-        typescript = { { 'prettierd', 'prettier' } },
+        python = { 'ruff_organize_imports', 'ruff_format' },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
         rust = { 'rustfmt' },
         cpp = { 'clang-format' },
+        elm = { 'elm_format', quiet = true },
       },
     },
     event = { 'BufWritePre' },
