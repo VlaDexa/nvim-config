@@ -440,8 +440,13 @@ require('lazy').setup({
         'folke/lazydev.nvim',
         ft = 'lua',
         opts = {
-          library = { 'neotest' }, ---@type lazydev.Library.spec[]
+          library = { 
+            -- Load luvit types when the `vim.uv` word is found
+            { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+		'neotest' 
+	}, ---@type lazydev.Library.spec[]
         },
+dependencies = {{ 'Bilal2453/luvit-meta', lazy = true },}
       },
     },
     config = function()
