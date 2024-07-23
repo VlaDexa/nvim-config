@@ -11,8 +11,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
+
+---@module "lazy"
+---@type LazySpec
 return {
   { 'echasnovski/mini.nvim', event = 'VeryLazy' },
-  { 'lewis6991/gitsigns.nvim', event = 'BufRead' },
-  { 'tpope/vim-sleuth', event = 'BufRead' },
+  { 'lewis6991/gitsigns.nvim', event = 'BufReadPost' },
+  { 'tpope/vim-sleuth', event = 'BufReadPost' },
+  {
+    'powerman/vim-plugin-AnsiEsc',
+    cmd = 'AnsiEsc',
+    init = function()
+      vim.api.nvim_create_autocmd('BufReadPost', {
+        pattern = '*.txt',
+        callback = function()
+          vim.cmd.AnsiEsc()
+        end,
+      })
+    end,
+  },
 }
