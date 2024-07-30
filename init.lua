@@ -163,8 +163,8 @@ vim.opt.scrolloff = 10
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
--- Set highlight on search, but clear on pressing <Esc> in normal mode
-vim.opt.hlsearch = true
+-- Clear highlights on search when pressing <Esc> in normal mode
+--  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
@@ -501,14 +501,14 @@ require('lazy').setup({
     },
   },
 
-  { 'Bilal2453/luvit-meta', lazy = true },
-  -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-  -- used for completion, annotations and signatures of Neovim apis
-  ---@module 'lazydev'
+  -- LSP Plugins
   {
+    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+    -- used for completion, annotations and signatures of Neovim apis
     'folke/lazydev.nvim',
     ft = 'lua',
     opts = {
+      ---@module 'lazydev'
       ---@type lazydev.Library.spec[]
       library = {
         -- Load luvit types when the `vim.uv` word is found
@@ -517,6 +517,7 @@ require('lazy').setup({
       },
     },
   },
+  { 'Bilal2453/luvit-meta', lazy = true },
   -- Automatically install LSPs and related tools to stdpath for Neovim
   { 'williamboman/mason.nvim', config = true, cmd = { 'Mason', 'MasonLog', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonUpdate' } },
 
@@ -526,13 +527,17 @@ require('lazy').setup({
     dependencies = { 'williamboman/mason.nvim' },
     cmd = { 'MasonToolsClean', 'MasonToolsInstall', 'MasonToolsInstallSync', 'MasonToolsUpdate', 'MasonToolsUpdateSync' },
   },
-  { -- LSP Configuration & Plugins
+  {
+    -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
+
+      -- Allows extra capabilities provided by nvim-cmp
+      'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -840,6 +845,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'ruff_organize_imports', 'ruff_format' },
+        -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         rust = { 'rustfmt' },
