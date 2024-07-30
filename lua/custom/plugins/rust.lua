@@ -11,22 +11,16 @@ return {
     opts = {},
   },
   {
-    'rouge8/neotest-rust',
-    dependencies = {
-      {
-        'nvim-neotest/neotest',
-        opts = function()
-          return {
-            adapters = {
-              require 'neotest-rust' {
-                args = { '--no-capture' },
-              },
-            },
-          }
-        end,
-      },
-      'nvim-treesitter/nvim-treesitter',
-    },
-    lazy = true,
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
+  {
+    'nvim-neotest/neotest',
+    opts = function()
+      return { adapters = {
+        require 'rustaceanvim.neotest',
+      } }
+    end,
   },
 }
