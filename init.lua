@@ -293,7 +293,7 @@ require('lazy').setup({
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
-    event = 'VeryLazy', -- Sets the loading event to 'VimEnter'
+    event = 'VeryLazy', -- Sets the loading event to 'VeryLazy'
     opts = {
       ---@type wk.Spec
       spec = {
@@ -1080,8 +1080,8 @@ require('lazy').setup({
   require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
