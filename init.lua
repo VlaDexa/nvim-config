@@ -560,15 +560,15 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-  -- Automatically install LSPs and related tools to stdpath for Neovim
-  { 'williamboman/mason.nvim', config = true, cmd = { 'Mason', 'MasonLog', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonUpdate' } },
+      -- Automatically install LSPs and related tools to stdpath for Neovim
+      { 'williamboman/mason.nvim', config = true, cmd = { 'Mason', 'MasonLog', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonUpdate' } },
 
-  { 'williamboman/mason-lspconfig.nvim', dependencies = { 'williamboman/mason.nvim' }, lazy = true },
-  {
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
-    dependencies = { 'williamboman/mason.nvim' },
-    cmd = { 'MasonToolsClean', 'MasonToolsInstall', 'MasonToolsInstallSync', 'MasonToolsUpdate', 'MasonToolsUpdateSync' },
-  },
+      { 'williamboman/mason-lspconfig.nvim', dependencies = { 'williamboman/mason.nvim' }, lazy = true },
+      {
+        'WhoIsSethDaniel/mason-tool-installer.nvim',
+        dependencies = { 'williamboman/mason.nvim' },
+        cmd = { 'MasonToolsClean', 'MasonToolsInstall', 'MasonToolsInstallSync', 'MasonToolsUpdate', 'MasonToolsUpdateSync' },
+      },
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
