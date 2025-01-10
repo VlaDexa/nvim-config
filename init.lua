@@ -92,6 +92,8 @@ vim.g.maplocalleader = ' '
 vim.g.markdown_fenced_languages = {
   'ts=typescript',
 }
+-- This was breaking zig files
+vim.g.zig_fmt_autosave = 0
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -878,7 +880,6 @@ require('lazy').setup({
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
-      notify_on_error = false,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
@@ -1069,6 +1070,8 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+
+      require('mini.align').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
