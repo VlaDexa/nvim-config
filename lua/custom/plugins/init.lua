@@ -19,6 +19,14 @@ return {
   { 'lewis6991/gitsigns.nvim', event = 'BufReadPost' },
   { 'tpope/vim-sleuth', event = 'BufReadPost' },
   {
+    'norcalli/nvim-colorizer.lua',
+    opts = {
+      '*',
+      css = { css = true },
+    },
+    event = 'BufReadPost',
+  },
+  {
     'powerman/vim-plugin-AnsiEsc',
     cmd = 'AnsiEsc',
     init = function()
