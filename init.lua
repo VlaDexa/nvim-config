@@ -553,12 +553,10 @@ require('lazy').setup({
       ---@type lazydev.Library.spec[]
       library = {
         -- Load luvit types when the `vim.uv` word is found
-        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-        'neotest',
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
       },
     },
   },
-  { 'Bilal2453/luvit-meta', lazy = true },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -885,6 +883,7 @@ require('lazy').setup({
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
+      notify_on_error = false,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
