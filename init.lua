@@ -1101,7 +1101,7 @@ require('lazy').setup({
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'tokyonight-night'
     end,
-    lazy = true,
+    lazy = false,
   },
 
   -- Highlight todo, notes, etc in comments
