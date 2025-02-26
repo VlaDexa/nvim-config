@@ -18,6 +18,7 @@ return {
   { 'echasnovski/mini.nvim', event = 'VeryLazy' },
   { 'lewis6991/gitsigns.nvim', event = 'BufReadPost' },
   { 'tpope/vim-sleuth', event = 'BufReadPost' },
+  { 'edgedb/edgedb-vim', ft = 'edgeql' },
   {
     'norcalli/nvim-colorizer.lua',
     opts = {
