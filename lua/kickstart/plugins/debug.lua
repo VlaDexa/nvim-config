@@ -56,6 +56,7 @@ return {
     -- NOTE: And you can specify dependencies as well
     dependencies = {
       -- Add your own debuggers here
+      "mxsdev/nvim-dap-vscode-js"
     },
     keys = {
       -- Basic debugging keymaps, feel free to change to your liking!
