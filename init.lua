@@ -583,12 +583,12 @@ require('lazy').setup({
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      { 'williamboman/mason.nvim', opts = {}, cmd = { 'Mason', 'MasonLog', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonUpdate' } },
+      { 'mason-org/mason.nvim', opts = {}, cmd = { 'Mason', 'MasonLog', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonUpdate' } },
 
-      { 'williamboman/mason-lspconfig.nvim', dependencies = { 'williamboman/mason.nvim' }, lazy = true },
+      { 'mason-org/mason-lspconfig.nvim', dependencies = { 'mason-org/mason.nvim' }, lazy = true },
       {
         'WhoIsSethDaniel/mason-tool-installer.nvim',
-        dependencies = { 'williamboman/mason.nvim' },
+        dependencies = { 'mason-org/mason.nvim' },
         cmd = { 'MasonToolsClean', 'MasonToolsInstall', 'MasonToolsInstallSync', 'MasonToolsUpdate', 'MasonToolsUpdateSync' },
       },
       -- Useful status updates for LSP.
