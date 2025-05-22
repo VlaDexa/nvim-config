@@ -47,7 +47,7 @@ return {
     },
     cmd = { 'DapInstall', 'DapUninstall' },
     dependencies = {
-      'williamboman/mason.nvim',
+      'mason-org/mason.nvim',
     },
   },
   {
