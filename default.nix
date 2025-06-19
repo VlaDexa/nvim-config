@@ -2,7 +2,16 @@
 
 pkgs.stdenv.mkDerivation {
   name = "vladexa-nvim-config";
-  src = ./.;
+  src = pkgs.lib.cleanSource ./.;
+
+  buildInputs = with pkgs; [
+    gcc
+    gnumake
+    git
+    ripgrep
+    fd
+    unzip
+  ];
 
   installPhase = ''
     mkdir -p $out
