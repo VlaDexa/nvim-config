@@ -177,6 +177,11 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+vim.keymap.set('n', 'gK', function()
+  local new_config = not vim.diagnostic.config().virtual_lines
+  vim.diagnostic.config { virtual_lines = new_config }
+end, { desc = 'Toggle diagnostic virtual_lines' })
+
 -- Set Russian langmap
 vim.opt.langmap = {
   'ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -234,6 +239,24 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
   end,
+})
+
+vim.api.nvim_create_user_command('FormatDisable', function(args)
+  if args.bang then
+    -- FormatDisable! will disable formatting just for this buffer
+    vim.b.disable_autoformat = true
+  else
+    vim.g.disable_autoformat = true
+  end
+end, {
+  desc = 'Disable autoformat-on-save',
+  bang = true,
+})
+vim.api.nvim_create_user_command('FormatEnable', function()
+  vim.b.disable_autoformat = false
+  vim.g.disable_autoformat = false
+end, {
+  desc = 'Re-enable autoformat-on-save',
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -842,22 +865,22 @@ require('lazy').setup({
           single_file_support = false,
         },
         --
-        denols = {
-          root_dir = require('lspconfig').util.root_pattern('deno.json', 'deno.jsonc'),
-          init_options = {
-            lint = true,
-            unstable = true,
-            suggest = {
-              imports = {
-                hosts = {
-                  ['https://deno.land'] = true,
-                  ['https://cdn.nest.land'] = true,
-                  ['https://crux.land'] = true,
-                },
-              },
-            },
-          },
-        },
+        -- denols = {
+        --   root_dir = require('lspconfig').util.root_pattern('deno.json', 'deno.jsonc'),
+        --   init_options = {
+        --     lint = true,
+        --     unstable = true,
+        --     suggest = {
+        --       imports = {
+        --         hosts = {
+        --           ['https://deno.land'] = true,
+        --           ['https://cdn.nest.land'] = true,
+        --           ['https://crux.land'] = true,
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
 
         lua_ls = {
           -- cmd = { ... },
@@ -896,7 +919,7 @@ require('lazy').setup({
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
+        automatic_enable = true,
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -904,7 +927,7 @@ require('lazy').setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.config(server_name, server)
           end,
         },
       }
@@ -930,6 +953,10 @@ require('lazy').setup({
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
+        -- Disable with a global or buffer-local variable
+        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+          return
+        end
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
@@ -954,8 +981,8 @@ require('lazy').setup({
         typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
         rust = { 'rustfmt' },
         cpp = { 'clang-format' },
-        elm = { 'elm_format', quiet = true },
-        asm = { 'asmfmt' },
+        sh = { 'shellharden' },
+        nix = { 'nixfmt' },
       },
     },
     init = function()
@@ -1129,7 +1156,7 @@ require('lazy').setup({
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    event = { 'BufReadPre', 'BufNewFile' },
+    branch = 'master',
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
