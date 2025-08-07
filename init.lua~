@@ -335,7 +335,7 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -381,14 +381,14 @@ require('lazy').setup({
       ---@type wk.Spec
       -- Document existing key chains
       spec = {
-        { '<leader>c',  group = '[C]ode',     mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>ct', group = '[T]ests' },
-        { '<leader>d',  group = '[D]ocument' },
-        { '<leader>r',  group = '[R]ename' },
-        { '<leader>s',  group = '[S]earch' },
-        { '<leader>w',  group = '[W]orkspace' },
-        { '<leader>t',  group = '[T]oggle' },
-        { '<leader>h',  group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
     keys = {
@@ -430,7 +430,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -606,7 +606,7 @@ require('lazy').setup({
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      { 'mason-org/mason.nvim',           opts = {},                                 cmd = { 'Mason', 'MasonLog', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonUpdate' } },
+      { 'mason-org/mason.nvim', opts = {}, cmd = { 'Mason', 'MasonLog', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonUpdate' } },
 
       { 'mason-org/mason-lspconfig.nvim', dependencies = { 'mason-org/mason.nvim' }, lazy = true },
       {
@@ -776,16 +776,15 @@ require('lazy').setup({
         virtual_text = {
           source = 'if_many',
           spacing = 2,
-          format =
-              function(diagnostic)
-                local diagnostic_message = {
-                  [vim.diagnostic.severity.ERROR] = diagnostic.message,
-                  [vim.diagnostic.severity.WARN] = diagnostic.message,
-                  [vim.diagnostic.severity.INFO] = diagnostic.message,
-                  [vim.diagnostic.severity.HINT] = diagnostic.message,
-                }
-                return diagnostic_message[diagnostic.severity]
-              end,
+          format = function(diagnostic)
+            local diagnostic_message = {
+              [vim.diagnostic.severity.ERROR] = diagnostic.message,
+              [vim.diagnostic.severity.WARN] = diagnostic.message,
+              [vim.diagnostic.severity.INFO] = diagnostic.message,
+              [vim.diagnostic.severity.HINT] = diagnostic.message,
+            }
+            return diagnostic_message[diagnostic.severity]
+          end,
         },
       }
 
@@ -861,7 +860,7 @@ require('lazy').setup({
               -- print('this seems to be a ts project; return root dir based on package.json')
             end
 
-            return require('lspconfig').util.root_pattern 'package.json' (filename)
+            return require('lspconfig').util.root_pattern 'package.json'(filename)
           end,
           single_file_support = false,
         },
